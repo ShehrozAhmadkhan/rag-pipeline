@@ -13,11 +13,8 @@ def batch_based_embedding(chunks,batches = 100):
         batch = chunks[i:i+batches]
         vectors = client.embeddings.create(model="text-embedding-3-small",input=batch,dimensions=1024)
         for vector in vectors.data:
-            all_embeddings.append(vector)
+            all_embeddings.append(vector.embedding)
 
     return all_embeddings
 
-data = load_pdf_data("medicine.pdf")
-data_chunks = word_based_chunking(100,20,data)
-chunks_embed = batch_based_embedding(data_chunks)
-print(chunks_embed[0])
+
